@@ -1,4 +1,4 @@
-package com.mattos.aline.filmes.ui.activity
+package com.mattos.aline.filmes.model
 
 import com.google.gson.annotations.SerializedName
 
