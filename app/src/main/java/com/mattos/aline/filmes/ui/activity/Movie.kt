@@ -1,0 +1,11 @@
+package com.mattos.aline.filmes.ui.activity
+
+import com.google.gson.annotations.SerializedName
+
+data class Movie (
+    @SerializedName("id") var id: Long? = null,
+    @SerializedName("title") var title: String? = null,
+    @SerializedName("tagline") var tagline: String? = null,
+    @SerializedName("genre") var genre: String? = null
+) {
+}
