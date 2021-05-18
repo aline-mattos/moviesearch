@@ -2,10 +2,13 @@ package com.mattos.aline.filmes.ui.activity
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.mattos.aline.filmes.R
+import com.mattos.aline.filmes.adapter.MovieAdapter
 import com.mattos.aline.filmes.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,6 +16,7 @@ class MainActivity : Activity() {
 
     //Variables
     var listMovies: MutableList<Movie> = mutableListOf()
+    lateinit var adapterMovie: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +29,6 @@ class MainActivity : Activity() {
     private fun setup() {
         setupRecycler()
         setupEditText()
-        mainVisibility()
     }
 
     private fun setupEditText() {
@@ -39,23 +42,30 @@ class MainActivity : Activity() {
 
     private fun setupRecycler() {
 
-    }
+        adapterMovie = MovieAdapter {
 
-    private fun mainVisibility() {
-        edit_text_search.setOnClickListener {
-            if (recycler_movies.visibility == View.GONE) {
-                recycler_movies.visibility = View.VISIBLE
-            }
+
         }
-        if (recycler_movies.visibility == View.VISIBLE) {
-            layout_message_search.visibility = View.GONE
-        }
+
 
     }
 
     //General Methods
     private fun actionSearch(query: String) {
         Toast.makeText(this, "TODO: SEARCH $query", Toast.LENGTH_SHORT).show()
+
+        edit_text_search.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (recycler_movies.visibility == View.GONE) {
+                    recycler_movies.visibility = View.VISIBLE
+                    layout_message_search.visibility = View.GONE
+                }
+            }
+        })
+
     }
 
     private fun carregaLista() {

@@ -27,6 +27,8 @@ class MovieViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
 
     private fun setupData() {
 
+        textView.setText("${movie?.title}")
+
         lineView.visibility = last then View.GONE ?: View.VISIBLE
     }
 
