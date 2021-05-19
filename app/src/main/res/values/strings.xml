@@ -5,5 +5,6 @@
     <string name="search_text">Click here to search</string>
     <string name="search_description">Type the name of a movie in the search box.</string>
     <string name="search_conditionals">Do not use accents or special characters.</string>
+    <string name="menu">Menu</string>
 
 </resources>
