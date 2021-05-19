@@ -3,10 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
+
+    <Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/HeaderBar"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/Widget.AppCompat.ActionBar"
+        android:elevation="4dp"/>
 
    <LinearLayout
        android:layout_width="match_parent"
@@ -35,6 +48,8 @@
           android:layout_marginTop="8dp"
           android:layout_marginBottom="8dp"
           android:padding="10dp"
+          android:inputType="textNoSuggestions"
+          android:imeOptions="actionSearch"
           android:textColor="@color/grey_600"
           android:hint="@string/search_text"/>
 

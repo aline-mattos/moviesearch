@@ -1,11 +1,13 @@
 package com.mattos.aline.filmes.ui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mattos.aline.filmes.R
 import com.mattos.aline.filmes.adapter.MovieAdapter
@@ -17,6 +19,8 @@ class MainActivity : Activity() {
     //Variables
     var listMovies: MutableList<Movie> = mutableListOf()
     lateinit var adapterMovie: MovieAdapter
+    private var mTopToolbar: Toolbar? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +30,15 @@ class MainActivity : Activity() {
 
     //Setup
     private fun setup() {
+        toolBar()
         carregaLista()
         setupRecycler()
         setupEditText()
+    }
+
+    private fun toolBar() {
+        mTopToolbar = findViewById(R.id.my_toolbar)
+        setActionBar(mTopToolbar)
     }
 
     private fun setupEditText() {
@@ -42,12 +52,19 @@ class MainActivity : Activity() {
             }
         })
 
+        edit_text_search.setOnFocusChangeListener { view, hasFocus ->
+            if (!hasFocus) {
+                hideKeyboard(view)
+            }
+        }
+
     }
 
     private fun setupRecycler() {
         adapterMovie = MovieAdapter { movie ->
-            //show movie dialog
-            Toast.makeText(this, "Filme Clicado: ${movie.title}" , Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MovieActivity::class.java)
+            intent.putExtra("movie", movie);
+            startActivity(intent)
         }
 
         recycler_movies.layoutManager = LinearLayoutManager(this)
@@ -76,5 +93,10 @@ class MainActivity : Activity() {
         listMovies.add(Movie(id = 3, title = "A Pequena Sereia", tagline = "DDDDD", genre = "Drama"))
         listMovies.add(Movie(id = 4, title = "Sim Senhor", tagline = "EEEEE", genre = "Fantasia"))
         listMovies.add(Movie(id = 5, title = "Alice no país das maravilhas", tagline = "FFFFF", genre = "Romance"))
+    }
+
+    fun hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
